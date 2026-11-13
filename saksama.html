@@ -5,21 +5,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Cetak Dokumen — Jurnal Saksama</title>
   
-  <!-- Menggunakan Cloudflare CDN (Server Lokal Indonesia - Sangat Cepat) -->
-  <link rel="preconnect" href="https://cloudflare.com" crossorigin>
-  <link href="https://cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Menggunakan Cloudflare CDN -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   
   <style>
-    /* Menggunakan font sistem modern yang 100% instan tanpa download */
     body {
-      background: radial-gradient(circle at top right, #d1fae5 0%, #f1f5f9 45%, #e2e8f0 100%);
+      /* Latar belakang abu-abu gelap ke hitam dengan pendaran merah marun lembut */
+      background: radial-gradient(circle at top right, #450a0a 0%, #18181b 45%, #09090b 100%);
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       color: #1e293b;
       padding-bottom: 40px;
     }
-    /* ... biarkan sisa kode CSS lainnya tetap sama ... */
+
+    .main-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* Tombol Navigasi Atas */
+    .btn-nav-saksama {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav-saksama:hover {
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .btn-nav-tsaqafa {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e4e4e7;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav-tsaqafa:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 20px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
+      border: 1px solid rgba(220, 38, 38, 0.25);
+    }
+
+    .card-banner {
+      background: linear-gradient(135deg, #09090b 0%, #450a0a 55%, #991b1b 100%);
+      color: #ffffff;
+      padding: 28px 32px;
+      border-bottom: 3px solid #dc2626;
+    }
+
+    /* Styling agar input lebih lega, rapi, dan sejajar */
+    .form-control, .form-select {
+      padding: 0.65rem 0.95rem;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 0.25rem rgba(220, 38, 38, 0.15);
+    }
+
+    /* Khusus textarea judul artikel agar bisa di-resize vertikal */
+    textarea.resize-vertical {
+      resize: vertical;
+      min-height: 75px;
+      line-height: 1.5;
+    }
+
+    .btn-generate {
+      background: linear-gradient(135deg, #18181b 0%, #991b1b 100%);
+      color: #fff;
+      font-weight: 600;
+      padding: 0.85rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #7f1d1d;
+      box-shadow: 0 6px 16px rgba(153, 27, 27, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+    }
+
+    .btn-generate:hover {
+      background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+    }
+
+    .result-box {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .footer-text {
+      color: #a1a1aa;
+    }
   </style>
 </head>
 <body>
@@ -29,49 +126,55 @@
     
     <!-- Navigasi Kembali -->
     <div class="d-flex gap-2 mb-3">
-  <button type="button" onclick="window.location.href='https://yogaptek.github.io/saksaqafa/saksama.html'" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm flex-fill d-flex align-items-center justify-content-center gap-2">
-    <i class="bi bi-journal-bookmark-fill"></i> SAKSAMA
-  </button>
+      <button type="button" onclick="window.location.href='https://yogaptek.github.io/saksaqafa/saksama.html'" class="btn btn-nav-saksama rounded-pill px-4 py-2 fw-bold shadow-sm flex-fill d-flex align-items-center justify-content-center gap-2">
+        <i class="bi bi-journal-bookmark-fill"></i> SAKSAMA
+      </button>
 
-  <button type="button" onclick="window.location.href='https://yogaptek.github.io/saksaqafa/al-tsaqafa.html'" class="btn btn-success rounded-pill px-4 py-2 fw-bold shadow-sm flex-fill d-flex align-items-center justify-content-center gap-2">
-    <i class="bi bi-journal-text"></i> AL-TSAQAFA
-  </button>
-</div>
+      <button type="button" onclick="window.location.href='https://yogaptek.github.io/saksaqafa/al-tsaqafa.html'" class="btn btn-nav-tsaqafa rounded-pill px-4 py-2 fw-bold shadow-sm flex-fill d-flex align-items-center justify-content-center gap-2">
+        <i class="bi bi-journal-text"></i> AL-TSAQAFA
+      </button>
+    </div>
 
     <!-- Kartu Utama -->
     <div class="glass-card">
       <!-- Header Kartu -->
       <div class="card-banner text-center text-sm-start">
-        <span class="badge-journal"><i class="bi bi-book-half me-1"></i> </span>
-        <h3 class="fw-bold mb-1">Sistem Cetak Dokumen SAKSAMA: JURNAL SASTRA</h3>
+        <h3 class="fw-bold mb-1">Sistem Cetak Dokumen <br>SAKSAMA: JURNAL SASTRA</h3>
         <p class="mb-0 small text-white-50">Terbitkan Sertifikat Reviewer, LoA, Invoice, dan Receipt resmi secara otomatis.</p>
       </div>
 
       <div class="p-4 p-md-5">
         <form id="dynamicForm">
-          <!-- Pilihan Jenis Dokumen -->
-          <div class="mb-4">
-            <label for="jenis_dokumen" class="form-label">Pilih Jenis Dokumen</label>
-            <select id="jenis_dokumen" name="jenis_dokumen" class="form-select" required>
-              <option value="">-- Silakan Pilih Dokumen --</option>
-              <option value="REV">Sertifikat Reviewer</option>
-              <option value="LoA">LoA (Letter of Acceptance)</option>
-              <option value="INV">Invoice Pembayaran</option>
-              <option value="REC">Receipt (Bukti Pembayaran Lunas)</option>
-            </select>
+          
+          <!-- Pilihan Jenis Dokumen (Sejajar Horizontal) -->
+          <div class="row align-items-center mb-4">
+            <label for="jenis_dokumen" class="col-md-4 col-form-label fw-semibold">Pilih Jenis Dokumen</label>
+            <div class="col-md-8">
+              <select id="jenis_dokumen" name="jenis_dokumen" class="form-select" required>
+                <option value="">-- Silakan Pilih Dokumen --</option>
+                <option value="REV">Sertifikat Reviewer</option>
+                <option value="LoA">LoA (Letter of Acceptance)</option>
+                <option value="INV">Invoice Pembayaran</option>
+                <option value="REC">Receipt (Bukti Pembayaran Lunas)</option>
+              </select>
+            </div>
           </div>
 
           <!-- AREA INPUT DINAMIS -->
           <div id="formFields"></div>
 
-          <button type="submit" id="submitBtn" class="btn btn-generate w-100 mt-2">
-            <i class="bi bi-printer me-2"></i>Proses & Cetak PDF
-          </button>
+          <!-- Tombol Submit dengan Spasi Ekstra di Atasnya -->
+          <div class="mt-4 pt-3 border-top">
+            <button type="submit" id="submitBtn" class="btn btn-generate w-100">
+              <i class="bi bi-printer me-2"></i>Proses & Cetak PDF
+            </button>
+          </div>
+
         </form>
 
         <!-- Indikator Loading -->
-        <div id="loading" class="text-center mt-4 p-3 rounded-4 bg-light" style="display:none;">
-          <div class="spinner-border text-success" role="status">
+        <div id="loading" class="text-center mt-4 p-3 rounded-4 bg-light border" style="display:none;">
+          <div class="spinner-border text-danger" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
           <p class="text-dark fw-semibold mt-2 mb-0 small">
@@ -82,12 +185,12 @@
 
         <!-- Hasil Link Download -->
         <div id="result" class="result-box mt-4 text-center" style="display:none;">
-          <div class="d-inline-flex align-items-center justify-content-center bg-success text-white rounded-circle mb-2" style="width: 44px; height: 44px;">
+          <div class="d-inline-flex align-items-center justify-content-center bg-danger text-white rounded-circle mb-2" style="width: 44px; height: 44px;">
             <i class="bi bi-check-lg fs-4"></i>
           </div>
-          <h6 class="fw-bold text-success-emphasis mb-2">Dokumen Berhasil Dibuat!</h6>
+          <h6 class="fw-bold text-danger-emphasis mb-2">Dokumen Berhasil Dibuat!</h6>
           
-          <div class="bg-white rounded-3 p-3 mb-3 text-start border border-success-subtle shadow-sm">
+          <div class="bg-white rounded-3 p-3 mb-3 text-start border border-danger-subtle shadow-sm">
             <p class="small mb-1">Nomor Surat: <strong id="nomorSuratTampil" class="text-dark"></strong></p>
             <p id="boxKodeUnik" class="small mb-1" style="display:none;">
               Kode Unik: <strong id="kodeUnikTampil" class="text-danger"></strong>
@@ -97,14 +200,14 @@
             </p>
           </div>
 
-          <a id="pdfLink" href="#" target="_blank" class="btn btn-danger fw-bold px-4 py-2 rounded-3 shadow-sm">
-            <i class="bi bi-file-earmark-pdf-fill me-1"></i> Buka & Cetak PDF
+          <a id="pdfLink" href="#" target="_blank" class="btn btn-dark fw-bold px-4 py-2 rounded-3 shadow-sm">
+            <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i> Buka & Cetak PDF
           </a>
         </div>
       </div>
     </div>
 
-    <p class="text-center text-muted small mt-4 mb-0">
+    <p class="text-center footer-text small mt-4 mb-0">
       &copy; 2026 Saksama: Jurnal Sastra &bull; Sistem Administrasi Otomatis
     </p>
   </div>
@@ -134,65 +237,85 @@
 
     if (pilihan === 'REV') {
       formFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Nama Reviewer (beserta gelar)</label>
-          <input type="text" name="nama_reviewer" class="form-control" placeholder="Contoh: Dr. Budi Santoso, M.Kom." required>
+        <div class="row align-items-center mb-4">
+          <label class="col-md-4 col-form-label fw-semibold">Nama Reviewer (beserta gelar)</label>
+          <div class="col-md-8">
+            <input type="text" name="nama_reviewer" class="form-control" placeholder="Contoh: Dr. Budi Santoso, M.Hum." required>
+          </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Judul Artikel yang Direview</label>
-          <input type="text" name="judul_artikel" class="form-control" placeholder="Masukkan judul lengkap artikel" required>
+        <div class="row align-items-start mb-4">
+          <label class="col-md-4 col-form-label fw-semibold pt-md-2">Judul Artikel yang Direview</label>
+          <div class="col-md-8">
+            <textarea name="judul_artikel" class="form-control resize-vertical" rows="2" placeholder="Masukkan judul lengkap artikel" required></textarea>
+          </div>
         </div>
       `;
     } 
     else if (pilihan === 'LoA') {
       formFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Nama Penulis</label>
-          <input type="text" name="nama_penulis" class="form-control" placeholder="Contoh: Siti Aminah, dkk." required>
+        <div class="row align-items-center mb-4">
+          <label class="col-md-4 col-form-label fw-semibold">Nama Penulis</label>
+          <div class="col-md-8">
+            <input type="text" name="nama_penulis" class="form-control" placeholder="Contoh: Siti Aminah, dkk." required>
+          </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Judul Artikel</label>
-          <input type="text" name="judul_artikel" class="form-control" placeholder="Masukkan judul lengkap artikel" required>
+        <div class="row align-items-start mb-4">
+          <label class="col-md-4 col-form-label fw-semibold pt-md-2">Judul Artikel</label>
+          <div class="col-md-8">
+            <textarea name="judul_artikel" class="form-control resize-vertical" rows="2" placeholder="Masukkan judul lengkap artikel" required></textarea>
+          </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Volume dan Issue</label>
-          <input type="text" name="vol_issue" class="form-control" placeholder="Contoh: Vol. 4 No. 2 (2026)" required>
+        <div class="row align-items-center mb-4">
+          <label class="col-md-4 col-form-label fw-semibold">Volume dan Issue</label>
+          <div class="col-md-8">
+            <input type="text" name="vol_issue" class="form-control" placeholder="Contoh: Vol. 4 No. 2 (2026)" required>
+          </div>
         </div>
       `;
     } 
     else if (pilihan === 'INV') {
       formFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Nama Penulis</label>
-          <input type="text" name="nama_penulis" class="form-control" placeholder="Contoh: Andi Wijaya" required>
+        <div class="row align-items-center mb-4">
+          <label class="col-md-4 col-form-label fw-semibold">Nama Penulis</label>
+          <div class="col-md-8">
+            <input type="text" name="nama_penulis" class="form-control" placeholder="Contoh: Andi Wijaya" required>
+          </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Judul Artikel</label>
-          <input type="text" name="judul_artikel" class="form-control" placeholder="Masukkan judul lengkap artikel" required>
+        <div class="row align-items-start mb-4">
+          <label class="col-md-4 col-form-label fw-semibold pt-md-2">Judul Artikel</label>
+          <div class="col-md-8">
+            <textarea name="judul_artikel" class="form-control resize-vertical" rows="2" placeholder="Masukkan judul lengkap artikel" required></textarea>
+          </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Volume dan Issue</label>
-          <input type="text" name="vol_issue" class="form-control" placeholder="Contoh: Vol. 4 No. 2 (2026)" required>
+        <div class="row align-items-center mb-4">
+          <label class="col-md-4 col-form-label fw-semibold">Volume dan Issue</label>
+          <div class="col-md-8">
+            <input type="text" name="vol_issue" class="form-control" placeholder="Contoh: Vol. 4 No. 2 (2026)" required>
+          </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Nominal Tagihan</label>
-          <select name="tagihan" class="form-select" required>
-            <option value="Free">Free</option>
-            <option value="IDR 500.000">Rp 500.000</option>
-            <option value="IDR 1.000.000">Rp 1.000.000</option>
-            <option value="IDR 1.500.000">Rp 1.500.000</option>
-            <option value="IDR 2.000.000">Rp 2.000.000</option>
-          </select>
+        <div class="row align-items-center mb-4">
+          <label class="col-md-4 col-form-label fw-semibold">Nominal Tagihan</label>
+          <div class="col-md-8">
+            <select name="tagihan" class="form-select" required>
+              <option value="Free">Free</option>
+              <option value="IDR 500.000">Rp 500.000</option>
+              <option value="IDR 1.000.000">Rp 1.000.000</option>
+              <option value="IDR 1.500.000">Rp 1.500.000</option>
+              <option value="IDR 2.000.000">Rp 2.000.000</option>
+            </select>
+          </div>
         </div>
       `;
     }
     else if (pilihan === 'REC') {
       formFields.innerHTML = `
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Masukkan Kode Unik Invoice</label>
-          <input type="text" name="kode_unik_cari" class="form-control text-uppercase" placeholder="Contoh: SKSM-A8K92M4X" required>
-          <div class="form-text">
-            *Sistem otomatis mengambil data penulis, judul, dan mengubah status menjadi PAID.
+        <div class="row align-items-start mb-4">
+          <label class="col-md-4 col-form-label fw-semibold pt-md-2">Kode Unik Invoice</label>
+          <div class="col-md-8">
+            <input type="text" name="kode_unik_cari" class="form-control text-uppercase" placeholder="Contoh: SKSM-A8K92M4X" required>
+            <div class="form-text mt-2">
+              *Sistem otomatis mengambil data penulis, judul, dan mengubah status menjadi PAID.
+            </div>
           </div>
         </div>
       `;
