@@ -3,238 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistem Cetak Dokumen — Jurnal SAKSAMA</title>
-  <!-- Google Fonts: Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://googleapis.com">
-  <link rel="preconnect" href="https://gstatic.com" crossorigin>
-  <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://jsdelivr.net" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link href="https://jsdelivr.net" rel="stylesheet">
+  <title>Sistem Cetak Dokumen — Jurnal Saksama</title>
+  
+  <!-- Menggunakan Cloudflare CDN (Server Lokal Indonesia - Sangat Cepat) -->
+  <link rel="preconnect" href="https://cloudflare.com" crossorigin>
+  <link href="https://cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  
   <style>
-    :root {
-      --primary-navy: #0f172a;
-      --accent-blue: #2563eb;
-      --accent-hover: #1d4ed8;
-      --bg-surface: #f1f5f9;
-    }
-
+    /* Menggunakan font sistem modern yang 100% instan tanpa download */
     body {
-      background: radial-gradient(circle at top right, #e0e7ff 0%, #f1f5f9 45%, #e2e8f0 100%);
+      background: radial-gradient(circle at top right, #d1fae5 0%, #f1f5f9 45%, #e2e8f0 100%);
       min-height: 100vh;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       color: #1e293b;
       padding-bottom: 40px;
     }
-
-    .main-wrapper {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #475569;
-      font-weight: 600;
-      font-size: 0.875rem;
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 99px;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      transition: all 0.2s ease;
-    }
-
-    .back-link:hover {
-      color: var(--accent-blue);
-      background: #ffffff;
-      transform: translateX(-3px);
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-    }
-
-    .glass-card {
-      background: #ffffff;
-      border-radius: 24px;
-      border: 1px solid rgba(226, 232, 240, 0.8);
-      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
-      overflow: hidden;
-    }
-
-    .card-banner {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #2563eb 100%);
-      padding: 36px 32px;
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-banner::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .badge-journal {
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #e0e7ff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      padding: 5px 14px;
-      border-radius: 99px;
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-
-    /* Gaya Pilihan Jenis Dokumen Modern */
-    .doc-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    @media (max-width: 480px) {
-      .doc-grid {
-        grid-template-columns: 1fr;
-      }
-      .card-banner {
-        padding: 28px 22px;
-      }
-    }
-
-    .doc-option {
-      border: 1.5px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 14px 16px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      background: #f8fafc;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-align: left;
-    }
-
-    .doc-option:hover {
-      border-color: #93c5fd;
-      background: #eff6ff;
-      transform: translateY(-2px);
-    }
-
-    .doc-option.active {
-      border-color: var(--accent-blue);
-      background: #eff6ff;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-    }
-
-    .doc-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
-      transition: all 0.2s ease;
-    }
-
-    .doc-option.active .doc-icon {
-      background: var(--accent-blue);
-      color: #ffffff;
-    }
-
-    .doc-title {
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: #0f172a;
-      line-height: 1.2;
-    }
-
-    .doc-sub {
-      font-size: 0.75rem;
-      color: #64748b;
-      margin-top: 2px;
-    }
-
-    /* Input Form Modern */
-    .form-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #334155;
-      margin-bottom: 6px;
-    }
-
-    .form-control, .form-select {
-      border-radius: 12px;
-      border: 1.5px solid #e2e8f0;
-      padding: 12px 16px;
-      font-size: 0.95rem;
-      color: #0f172a;
-      background-color: #f8fafc;
-      transition: all 0.2s ease;
-    }
-
-    .form-control:focus, .form-select:focus {
-      background-color: #ffffff;
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-    }
-
-    .btn-generate {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      border: none;
-      border-radius: 14px;
-      padding: 14px 24px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.2px;
-      color: #ffffff;
-      box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
-      transition: all 0.25s ease;
-    }
-
-    .btn-generate:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 24px -5px rgba(37, 99, 235, 0.5);
-      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-      color: #ffffff;
-    }
-
-    .btn-generate:disabled {
-      background: #94a3b8;
-      box-shadow: none;
-    }
-
-    .result-box {
-      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-      border: 1.5px solid #86efac;
-      border-radius: 18px;
-      padding: 24px;
-    }
-
-    .fade-in {
-      animation: fadeIn 0.3s ease-out forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    /* ... biarkan sisa kode CSS lainnya tetap sama ... */
   </style>
 </head>
 <body>
@@ -251,88 +36,79 @@
 
     <!-- Kartu Utama -->
     <div class="glass-card">
-      <!-- Banner Header -->
-      <div class="card-banner">
-        <span class="badge-journal"><i class="bi bi-stars me-1"></i> JURNAL SAKSAMA</span>
-        <h3 class="fw-bold mb-1">Layanan Cetak Dokumen</h3>
+      <!-- Header Kartu -->
+      <div class="card-banner text-center text-sm-start">
+        <span class="badge-journal"><i class="bi bi-book-half me-1"></i> JURNAL AL-TSAQAFA</span>
+        <h3 class="fw-bold mb-1">Sistem Cetak Dokumen</h3>
         <p class="mb-0 small text-white-50">Terbitkan Sertifikat Reviewer, LoA, Invoice, dan Receipt resmi secara otomatis.</p>
       </div>
 
-      <!-- Body Form -->
       <div class="p-4 p-md-5">
         <form id="dynamicForm">
-          <!-- Hidden Select untuk menjaga kompatibilitas nama field -->
-          <input type="hidden" id="jenis_dokumen" name="jenis_dokumen" required>
-
+          <!-- Pilihan Jenis Dokumen -->
           <div class="mb-4">
-            <label class="form-label d-block mb-2">1. Pilih Jenis Dokumen</label>
-            <div class="doc-grid" id="docSelector">
-              
-              <div class="doc-option" data-value="REV">
-                <div class="doc-icon"><i class="bi bi-award"></i></div>
-                <div>
-                  <div class="doc-title">Sertifikat Reviewer</div>
-                  <div class="doc-sub">Piagam penghargaan mitra bestari</div>
-                </div>
-              </div>
-
-              <div class="doc-option" data-value="LoA">
-                <div class="doc-icon"><i class="bi bi-patch-check"></i></div>
-                <div>
-                  <div class="doc-title">Letter of Acceptance</div>
-                  <div class="doc-sub">Surat keterangan diterima (LoA)</div>
-                </div>
-              </div>
-
-              <div class="doc-option" data-value="INV">
-                <div class="doc-icon"><i class="bi bi-receipt"></i></div>
-                <div>
-                  <div class="doc-title">Invoice Pembayaran</div>
-                  <div class="doc-sub">Tagihan biaya publikasi (APC)</div>
-                </div>
-              </div>
-
-              <div class="doc-option" data-value="REC">
-                <div class="doc-icon"><i class="bi bi-check2-circle"></i></div>
-                <div>
-                  <div class="doc-title">Receipt Lunas</div>
-                  <div class="doc-sub">Kuitansi bukti pembayaran sah</div>
-                </div>
-              </div>
-
-            </div>
+            <label for="jenis_dokumen" class="form-label">Pilih Jenis Dokumen</label>
+            <select id="jenis_dokumen" name="jenis_dokumen" class="form-select" required>
+              <option value="">-- Silakan Pilih Dokumen --</option>
+              <option value="REV">Sertifikat Reviewer</option>
+              <option value="LoA">LoA (Letter of Acceptance)</option>
+              <option value="INV">Invoice Pembayaran</option>
+              <option value="REC">Receipt (Bukti Pembayaran Lunas)</option>
+            </select>
           </div>
 
           <!-- AREA INPUT DINAMIS -->
           <div id="formFields"></div>
 
           <button type="submit" id="submitBtn" class="btn btn-generate w-100 mt-2">
-            <i class="bi bi-file-earmark-arrow-down me-2"></i>Proses & Terbitkan PDF
+            <i class="bi bi-printer me-2"></i>Proses & Cetak PDF
           </button>
         </form>
 
         <!-- Indikator Loading -->
         <div id="loading" class="text-center mt-4 p-3 rounded-4 bg-light" style="display:none;">
-          <div class="spinner-border text-primary" style="width: 2rem; height: 2rem;" role="status">
+          <div class="spinner-border text-success" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
           <p class="text-dark fw-semibold mt-2 mb-0 small">
-            Menyusun dokumen PDF resmi...
+            Sedang memproses data dan menyusun file PDF...
           </p>
-          <span class="text-muted" style="font-size: 0.75rem;">Mohon tunggu beberapa detik</span>
+          <span class="text-muted" style="font-size: 0.75rem;">Mohon tunggu sebentar</span>
         </div>
 
         <!-- Hasil Link Download -->
-        <div id="result" class="result-box mt-4 text-center fade-in" style="display:none;">
+        <div id="result" class="result-box mt-4 text-center" style="display:none;">
           <div class="d-inline-flex align-items-center justify-content-center bg-success text-white rounded-circle mb-2" style="width: 44px; height: 44px;">
             <i class="bi bi-check-lg fs-4"></i>
           </div>
-          <h5 class="fw-bold text-success-emphasis mb-1">Dokumen Siap Diunduh!</h5>
-          <p class="small text-secondary mb-3">Silakan periksa rincian surat Anda di bawah ini.</p>
+          <h6 class="fw-bold text-success-emphasis mb-2">Dokumen Berhasil Dibuat!</h6>
+          
+          <div class="bg-white rounded-3 p-3 mb-3 text-start border border-success-subtle shadow-sm">
+            <p class="small mb-1">Nomor Surat: <strong id="nomorSuratTampil" class="text-dark"></strong></p>
+            <p id="boxKodeUnik" class="small mb-1" style="display:none;">
+              Kode Unik: <strong id="kodeUnikTampil" class="text-danger"></strong>
+            </p>
+            <p id="boxInfoPenulis" class="small mb-0" style="display:none;">
+              Detail: <strong id="infoPenulisTampil" class="text-dark"></strong>
+            </p>
+          </div>
+
+          <a id="pdfLink" href="#" target="_blank" class="btn btn-danger fw-bold px-4 py-2 rounded-3 shadow-sm">
+            <i class="bi bi-file-earmark-pdf-fill me-1"></i> Buka & Cetak PDF
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-muted small mt-4 mb-0">
+      &copy; 2026 Jurnal Al-Tsaqafa &bull; Sistem Administrasi Otomatis
+    </p>
+  </div>
+</div>
 
 <script>
   // URL WEB APP GOOGLE APPS SCRIPT ANDA
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbw91wZRQcXgKNRoo9ZdOeDTFBFVKFakQnrQafvSe2uCGCvoi7ipvghqkYPOwkLc0AySiA/exec'; 
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyqG38BtO2I0Z57klkQeua4RIK2Q-cGfn-h2kIDJ6SgZcIv9yovY4X0p8UsJJuuvRi4uQ/exec'; 
 
   const jenisDokumen = document.getElementById('jenis_dokumen');
   const formFields = document.getElementById('formFields');
