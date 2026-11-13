@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Sistem Cetak Dokumen Jurnal</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://jsdelivr.net" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://jsdelivr.net" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .portal-container {
+      max-width: 750px;
+      margin: auto;
+    }
+    .journal-btn {
+      transition: all 0.3s ease;
+      border: none;
+    }
+    .journal-btn:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+    }
+    .btn-saksama {
+      background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+      color: white;
+    }
+    .btn-saksama:hover {
+      color: white;
+      background: linear-gradient(135deg, #0b5ed7 0%, #084298 100%);
+    }
+    .btn-tsaqafa {
+      background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+      color: white;
+    }
+    .btn-tsaqafa:hover {
+      color: white;
+      background: linear-gradient(135deg, #157347 0%, #0f5132 100%);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container px-3 py-5 portal-container">
+  <div class="card shadow-lg border-0 rounded-4 p-4 p-md-5 text-center bg-white">
+    
+    <!-- Judul & Subjudul Beranda -->
+    <div class="mb-4">
+      <div class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-2 fw-semibold">
+        <i class="bi bi-printer-fill me-1"></i> Portal Layanan Administrasi
+      </div>
+      <h2 class="fw-bold text-dark mb-2">Sistem Cetak Dokumen Jurnal</h2>
+      <p class="text-muted mb-0">Silakan pilih jurnal tujuan Anda di bawah ini untuk mencetak Sertifikat, LoA, Invoice, atau Receipt.</p>
+    </div>
+
+    <!-- Baris 2 Tombol Utama -->
+    <div class="row g-3 g-md-4 mt-2">
+      
+      <!-- TOMBOL 1: SAKSAMA -->
+      <div class="col-12 col-md-6">
+        <!-- GANTI href="saksama.html" DENGAN LINK LAMAN SAKSAMA ANDA -->
+        <a href="https://yogaptek.github.io/saksaqafa/saksama.html" class="btn btn-saksama journal-btn w-100 h-100 p-4 rounded-4 shadow-sm d-flex flex-column align-items-center justify-content-center text-decoration-none">
+          <div class="bg-white bg-opacity-25 rounded-circle p-3 mb-3">
+            <i class="bi bi-journal-bookmark-fill fs-2 text-white"></i>
+          </div>
+          <h4 class="fw-bold mb-1">SAKSAMA</h4>
+          <span class="small opacity-75">Buka Layanan Dokumen <i class="bi bi-arrow-right ms-1"></i></span>
+        </a>
+      </div>
+
+      <!-- TOMBOL 2: Al-Tsaqafa -->
+      <div class="col-12 col-md-6">
+        <!-- GANTI href="al-tsaqafa.html" DENGAN LINK LAMAN AL-TSAQAFA ANDA -->
+        <a href="https://yogaptek.github.io/saksaqafa/al-tsaqafa.html" class="btn btn-tsaqafa journal-btn w-100 h-100 p-4 rounded-4 shadow-sm d-flex flex-column align-items-center justify-content-center text-decoration-none">
+          <div class="bg-white bg-opacity-25 rounded-circle p-3 mb-3">
+            <i class="bi bi-journal-text fs-2 text-white"></i>
+          </div>
+          <h4 class="fw-bold mb-1">Al-Tsaqafa</h4>
+          <span class="small opacity-75">Buka Layanan Dokumen <i class="bi bi-arrow-right ms-1"></i></span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Footer Kecil -->
+    <div class="mt-4 pt-3 border-top">
+      <small class="text-muted">Pastikan data yang Anda masukkan sesuai dengan sistem OJS jurnal terkait.</small>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
