@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Cetak Dokumen - Jurnal Al-Tsaqafa</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://jsdelivr.net" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://jsdelivr.net" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f6f9;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .form-card {
+      max-width: 600px;
+      margin: 40px auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container px-3">
+  <div class="card shadow-sm border-0 rounded-4 form-card">
+    <!-- Header Kartu -->
+    <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
+      <h4 class="mb-1 fw-bold"><i class="bi bi-file-earmark-pdf me-2"></i>Sistem Cetak Dokumen</h4>
+      <p class="mb-0 small opacity-75">Jurnal Saksama</p>
+    </div>
+
+    <div class="card-body p-4 p-md-5">
+      <form id="dynamicForm">
+        <!-- Pilihan Jenis Dokumen -->
+        <div class="mb-3">
+          <label for="jenis_dokumen" class="form-label fw-semibold">Pilih Jenis Dokumen</label>
+          <select id="jenis_dokumen" name="jenis_dokumen" class="form-select form-select-lg fs-6" required>
+            <option value="">-- Silakan Pilih Dokumen --</option>
+            <option value="REV">Sertifikat Reviewer</option>
+            <option value="LoA">LoA (Letter of Acceptance)</option>
+            <option value="INV">Invoice Pembayaran</option>
+            <option value="REC">Receipt (Bukti Pembayaran Lunas)</option>
+          </select>
+        </div>
+
+        <!-- AREA INPUT DINAMIS -->
+        <div id="formFields"></div>
+
+        <button type="submit" id="submitBtn" class="btn btn-primary btn-lg w-100 mt-3 fw-semibold shadow-sm">
+          <i class="bi bi-printer me-2"></i>Proses & Cetak PDF
+        </button>
+      </form>
+
+      <!-- Indikator Loading -->
+      <div id="loading" class="text-center mt-4" style="display:none;">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-primary fw-semibold mt-2 mb-0 small">
+          Sedang memproses data dan menyusun file PDF... Mohon tunggu sebentar.
+        </p>
+      </div>
+
+      <!-- Hasil Link Download -->
+      <div id="result" class="alert alert-success mt-4 rounded-3 text-center border-success" style="display:none;">
+        <h6 class="alert-heading fw-bold mb-2">
+          <i class="bi bi-check-circle-fill me-1"></i> Dokumen Berhasil Dibuat!
+        </h6>
+        <hr class="my-2">
+        <p class="small mb-1">Nomor Surat: <strong id="nomorSuratTampil"></strong></p>
+        <p id="boxKodeUnik" class="small mb-1" style="display:none;">
+          Kode Unik: <strong id="kodeUnikTampil" class="text-danger"></strong>
+        </p>
+        <p id="boxInfoPenulis" class="small mb-3" style="display:none;">
+          Detail: <strong id="infoPenulisTampil"></strong>
+        </p>
+        <a id="pdfLink" href="#" target="_blank" class="btn btn-danger fw-semibold px-4">
+          <i class="bi bi-file-pdf me-1"></i> Buka & Cetak PDF
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // URL WEB APP GOOGLE APPS SCRIPT ANDA
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyqG38BtO2I0Z57klkQeua4RIK2Q-cGfn-h2kIDJ6SgZcIv9yovY4X0p8UsJJuuvRi4uQ/exec'; 
+
+  const jenisDokumen = document.getElementById('jenis_dokumen');
+  const formFields = document.getElementById('formFields');
+  const form = document.getElementById('dynamicForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const loading = document.getElementById('loading');
+  const resultDiv = document.getElementById('result');
+  const pdfLink = document.getElementById('pdfLink');
+  const nomorSuratTampil = document.getElementById('nomorSuratTampil');
+  const boxKodeUnik = document.getElementById('boxKodeUnik');
+  const kodeUnikTampil = document.getElementById('kodeUnikTampil');
+  const boxInfoPenulis = document.getElementById('boxInfoPenulis');
+  const infoPenulisTampil = document.getElementById('infoPenulisTampil');
+
+  jenisDokumen.addEventListener('change', function() {
+    const pilihan = this.value;
+    formFields.innerHTML = ''; 
+    resultDiv.style.display = 'none';
+
+    if (pilihan === 'REV') {
+      formFields.innerHTML = `
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nama Reviewer (beserta gelar)</label>
+          <input type="text" name="nama_reviewer" class="form-control" placeholder="Contoh: Dr. Budi Santoso, M.Kom." required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Judul Artikel yang Direview</label>
+          <input type="text" name="judul_artikel" class="form-control" placeholder="Masukkan judul lengkap artikel" required>
+        </div>
+      `;
+    } 
+    else if (pilihan === 'LoA') {
+      formFields.innerHTML = `
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nama Penulis</label>
+          <input type="text" name="nama_penulis" class="form-control" placeholder="Contoh: Siti Aminah, dkk." required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Judul Artikel</label>
+          <input type="text" name="judul_artikel" class="form-control" placeholder="Masukkan judul lengkap artikel" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Volume dan Issue</label>
+          <input type="text" name="vol_issue" class="form-control" placeholder="Contoh: Vol. 4 No. 2 (2026)" required>
+        </div>
+      `;
+    } 
+    else if (pilihan === 'INV') {
+      formFields.innerHTML = `
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nama Penulis</label>
+          <input type="text" name="nama_penulis" class="form-control" placeholder="Contoh: Andi Wijaya" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Judul Artikel</label>
+          <input type="text" name="judul_artikel" class="form-control" placeholder="Masukkan judul lengkap artikel" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Volume dan Issue</label>
+          <input type="text" name="vol_issue" class="form-control" placeholder="Contoh: Vol. 4 No. 2 (2026)" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nominal Tagihan</label>
+          <select name="tagihan" class="form-select" required>
+            <option value="Free">Free</option>
+            <option value="IDR 500.000">Rp 500.000</option>
+            <option value="IDR 1.000.000">Rp 1.000.000</option>
+            <option value="IDR 1.500.000">Rp 1.500.000</option>
+            <option value="IDR 2.000.000">Rp 2.000.000</option>
+          </select>
+        </div>
+      `;
+    }
+    else if (pilihan === 'REC') {
+      formFields.innerHTML = `
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Masukkan Kode Unik Invoice</label>
+          <input type="text" name="kode_unik_cari" class="form-control text-uppercase" placeholder="Contoh: SKSM-A8K92M4X" required>
+          <div class="form-text">
+            *Sistem otomatis mengambil data penulis, judul, dan mengubah status menjadi PAID.
+          </div>
+        </div>
+      `;
+    }
+  });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    loading.style.display = 'block';
+    resultDiv.style.display = 'none';
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => response.json())
+      .then(res => {
+        loading.style.display = 'none';
+        submitBtn.disabled = false;
+        
+        if(res.result === 'success') {
+          pdfLink.href = res.pdf_url;
+          nomorSuratTampil.textContent = res.nomor_surat;
+          
+          if (res.kode_unik && res.kode_unik !== '-') {
+            kodeUnikTampil.textContent = res.kode_unik;
+            boxKodeUnik.style.display = 'block';
+          } else {
+            boxKodeUnik.style.display = 'none';
+          }
+
+          if (res.info_penulis) {
+            infoPenulisTampil.textContent = res.info_penulis;
+            boxInfoPenulis.style.display = 'block';
+          } else {
+            boxInfoPenulis.style.display = 'none';
+          }
+
+          resultDiv.style.display = 'block';
+          form.reset();
+          formFields.innerHTML = '';
+        } else {
+          alert(res.message || 'Terjadi kesalahan sistem, silakan coba lagi.');
+        }
+      })
+      .catch(error => {
+        loading.style.display = 'none';
+        submitBtn.disabled = false;
+        alert('Gagal terhubung ke server: ' + error.message);
+      });
+  });
+</script>
+
+</body>
+</html>
